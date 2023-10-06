@@ -1,5 +1,6 @@
 package com.modu.ClientViewServer.member;
 
+import com.modu.ClientViewServer.Posts.PostDTO;
 import com.modu.ClientViewServer.config.EnvironmentValueConfig;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +34,7 @@ public class HomeController {
     private static String MEMBER_SERVER_HOST = "10.1.2.137";
 
     @GetMapping("/")
-    public String index(HttpServletRequest request, HttpServletResponse response) {
+    public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
         String tokenValue = request.getParameter("tokenValue");
         if (tokenValue != null) {
             log.info("tokenValue={}", tokenValue);
@@ -55,6 +56,21 @@ public class HomeController {
                 }
             }
         }
+
+        String uriString = UriComponentsBuilder
+                .newInstance()
+                .scheme("http")
+                .host("127.0.0.1")
+                .port(8084)
+                .path("/posts")
+                .build().toUriString();
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<List<PostDTO>> responsepost = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
+        });
+
+        model.addAttribute("postList", responsepost.getBody());
 
         return "index";
     }

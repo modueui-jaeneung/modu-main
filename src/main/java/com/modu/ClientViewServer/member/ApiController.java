@@ -1,5 +1,6 @@
 package com.modu.ClientViewServer.member;
 
+import com.modu.ClientViewServer.Posts.PostDTO;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class ApiController {
     private final RestTemplate restTemplate;
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getPosts(HttpServletRequest request) {
+    public ResponseEntity<List<PostDTO>> getPosts(HttpServletRequest request) {
 
         Cookie[] cookies = request.getCookies();
         String access_token = null;
@@ -44,14 +45,14 @@ public class ApiController {
                 .newInstance()
                 .scheme("http")
                 .host("127.0.0.1")
-                .port(8082)
+                .port(8084)
                 .path("/posts")
                 .build().toUriString();
 
         HttpHeaders headers = new HttpHeaders();
         headers.put("Authorization", List.of("Bearer " + access_token));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<List<PostDto>> response = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
+        ResponseEntity<List<PostDTO>> response = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
         });
 
         return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
