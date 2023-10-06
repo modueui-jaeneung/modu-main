@@ -2,6 +2,8 @@ package com.modu.ClientViewServer.Posts;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.modu.ClientViewServer.utils.UrlUtils;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 
 @Controller
@@ -19,6 +24,40 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 public class PostController {
     private final RestTemplate restTemplate;
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<PostDTO>> getPosts(HttpServletRequest request) {
+
+        Cookie[] cookies = request.getCookies();
+        String access_token = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("access_token")) {
+                access_token = cookie.getValue();
+            }
+        }
+
+        if (access_token == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        log.info("cookie에 access_token 있음.");
+
+        String uriString = UriComponentsBuilder
+                .newInstance()
+                .scheme("http")
+                .host("127.0.0.1")
+                .port(8084)
+                .path("/posts")
+                .build().toUriString();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Authorization", List.of("Bearer " + access_token));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<List<PostDTO>> response = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
+        });
+
+        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
+    }
 
     @GetMapping("/posts/{postId}")
     public String PostDetail(Model model, @PathVariable("postId") long postId) {
