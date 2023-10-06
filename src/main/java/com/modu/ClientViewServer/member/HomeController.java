@@ -19,6 +19,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
@@ -31,49 +32,40 @@ public class HomeController {
     private final RestTemplate restTemplate;
     private final EnvironmentValueConfig environmentValueConfig;
 
-    private static String MEMBER_SERVER_HOST = "10.1.2.137";
+    private static String MEMBER_SERVER_HOST = "localhost";
+
+    @GetMapping("/login")
+    public String loginResponse(HttpServletRequest request, RedirectAttributes re) {
+
+        String tokenValue = request.getParameter("tokenValue");
+
+        if (tokenValue != null) {
+            re.addFlashAttribute("access_token", tokenValue);
+        }
+
+        return "redirect:/";
+    }
 
     @GetMapping("/")
-    public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
-        String tokenValue = request.getParameter("tokenValue");
-        if (tokenValue != null) {
-            log.info("tokenValue={}", tokenValue);
-            Cookie cookie = new Cookie("access_token", tokenValue);
-            cookie.setMaxAge(3600);
-            cookie.setHttpOnly(true);
-            response.addCookie(cookie);
-            return "redirect:/";
-        }
-
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("access_token")) {
-                    Cookie responseCookie = new Cookie("access_token", cookie.getValue());
-                    responseCookie.setMaxAge(3600);
-                    responseCookie.setHttpOnly(true);
-                    response.addCookie(responseCookie);
-                }
-            }
-        }
-
-        String uriString = UriComponentsBuilder
-                .newInstance()
-                .scheme("http")
-                .host("127.0.0.1")
-                .port(8084)
-                .path("/posts")
-                .build().toUriString();
-
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<List<PostDTO>> responsepost = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
-        });
-
-        model.addAttribute("postList", responsepost.getBody());
-
+    public String index(@ModelAttribute("access_token") String token, Model model) {
+        model.addAttribute("access_token", token);
+//        String uriString = UriComponentsBuilder
+//                    .newInstance()
+//                    .scheme("http")
+//                    .host("127.0.0.1")
+//                    .port(8084)
+//                    .path("/posts")
+//                    .build().toUriString();
+//
+//            HttpHeaders headers = new HttpHeaders();
+//            HttpEntity<String> entity = new HttpEntity<>(headers);
+//            ResponseEntity<List<PostDTO>> responsepost = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
+//            });
+//
+//            model.addAttribute("postList", responsepost.getBody());
         return "index";
     }
+
 
     @GetMapping("/signup")
     public String signup(Model model) {
