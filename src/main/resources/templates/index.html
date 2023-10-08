@@ -37,7 +37,7 @@
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" th:href="@{'/'}">게시판</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">채팅</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="javascript:chatApiCall();">채팅</a></li>
                     </ul>
 <!--                    <form class="d-flex">-->
 <!--                        <button class="btn btn-outline-dark" type="submit">-->
@@ -162,7 +162,11 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script th:inline="javascript">
             function isAuthenticated() {
+                const token = localStorage.getItem("access_token");
                 fetch("/authentication", {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    },
                     method: "GET"
                 })
                     .then(response => {
@@ -205,6 +209,18 @@
                 localStorage.setItem("access_token", token);
             }
             setToken()
+
+            function chatApiCall() {
+
+                const token = localStorage.getItem("access_token");
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8080/chat",
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    }
+                })
+            }
 
         </script>
     </body>

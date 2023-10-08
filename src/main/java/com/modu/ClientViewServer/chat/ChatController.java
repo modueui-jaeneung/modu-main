@@ -3,6 +3,8 @@ package com.modu.ClientViewServer.chat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +23,10 @@ public class ChatController {
     private final RestTemplate restTemplate;
 
     @GetMapping("/chat")
-    public String chatIndex(Model model) {
+    public String chatIndex(Model model, @AuthenticationPrincipal Jwt jwt) {
 
-        String userId = "참석자2";
+        log.info("jwt={}", jwt.toString());
+        String userId = jwt.getSubject();
 
         URI uri = UriComponentsBuilder
                 .fromUriString("http://localhost:8085")
