@@ -336,7 +336,8 @@
                                         <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
                                     </a>
                                     <div class="chat-about">
-                                        <h6 class="m-b-0"  th:text="${roomId}"> 상대방 닉네임 </h6>
+                                        <h6 class="m-b-0" th:if="${username} == ${room.ownerId}" th:text="${room.participantId}"> 상대방 닉네임 </h6>
+                                        <h6 class="m-b-0" th:unless="${username} == ${room.ownerId}" th:text="${room.ownerId}"> 상대방 닉네임 </h6>
                                         <small>Last seen: 2 hours ago</small>
                                     </div>
                                 </div>
@@ -415,7 +416,7 @@
 
     $(function(){
 
-        const socket = new SockJS('http://localhost:8085/ws')
+        const socket = new SockJS('http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/ws')
         let stompClient = Stomp.over(socket)
 
         // connection이 맺어지면 실행
@@ -423,6 +424,7 @@
             console.log('STOMP Connection: ' + frame)
 
             const roomId = [[${roomId}]];
+            console.log('roomId 테스트: ' + roomId)
             const username = [[${username}]];
 
             // 토픽 구독. subscribe(path, callback)으로 메세지를 받을 수 있음
