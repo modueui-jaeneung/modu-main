@@ -416,7 +416,7 @@
 
     $(function(){
 
-        const socket = new SockJS('http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/ws')
+        const socket = new SockJS('localhost:8085/ws')
         let stompClient = Stomp.over(socket)
 
         // connection이 맺어지면 실행

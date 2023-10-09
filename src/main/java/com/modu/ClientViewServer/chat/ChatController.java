@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 public class ChatController {
 
     private final RestTemplate restTemplate;
-    private final String hostUrl = "http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com";
+    private final String hostUrl = "http://localhost:8085";
 
     @GetMapping("/chat")
     public String chatIndex(Model model) {
