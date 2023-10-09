@@ -1,0 +1,7 @@
+spring:
+  mvc:
+    static-path-pattern: /static/**
+    check-template-location: true
+
+kakao:
+  restApiKey: 47a59ca69b7300526615f12d8537e400
