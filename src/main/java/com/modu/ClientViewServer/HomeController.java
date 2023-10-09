@@ -1,6 +1,5 @@
 package com.modu.ClientViewServer;
 
-import com.modu.ClientViewServer.Posts.PostDTO;
 import com.modu.ClientViewServer.config.EnvironmentValueConfig;
 import com.modu.ClientViewServer.member.SignUpDto;
 import jakarta.servlet.http.Cookie;
@@ -13,9 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -23,7 +19,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
@@ -32,9 +27,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class HomeController {
-
-    @GetMapping("/login")
-    public String loginResponse(HttpServletRequest request, RedirectAttributes re) {
 
         String tokenValue = request.getParameter("tokenValue");
 
@@ -64,18 +56,6 @@ public class HomeController {
 //            model.addAttribute("postList", responsepost.getBody());
         return "index";
     }
-
-    @GetMapping("/authentication")
-    public ResponseEntity<Message> authentication() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof JwtAuthenticationToken) {
-            return new ResponseEntity<>(new Message("1"), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(new Message("0"), HttpStatus.OK);
-        }
-    }
-
-
 
 
     @GetMapping("/bookmark")
