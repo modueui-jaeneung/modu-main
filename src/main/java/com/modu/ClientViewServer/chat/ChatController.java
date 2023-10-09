@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +28,10 @@ public class ChatController {
     private final String hostUrl = "http://localhost:8085";
 
     @GetMapping("/chat")
-    public String chatIndex(Model model) {
+    public String chatIndex(Model model, @AuthenticationPrincipal Jwt jwt) {
 
-
-        String userId = "참석자2";
+        log.info("jwt={}", jwt.toString());
+        String userId = jwt.getSubject();
 
         URI uri = UriComponentsBuilder
                 .fromUriString(hostUrl)
@@ -49,8 +50,8 @@ public class ChatController {
     }
 
     @GetMapping("/chat/{roomId}")
-    public String enterRoom(@PathVariable String roomId, Model model) {
-        String userId = "참석자2";
+    public String enterRoom(@PathVariable String roomId, Model model, @AuthenticationPrincipal Jwt jwt) {
+        String userId = jwt.getSubject();
 
         // 채팅방 데이터
         ChatRoomDto[] rooms = this.getRooms(userId);
@@ -84,7 +85,7 @@ public class ChatController {
         return rooms;
     }
 
-    public ChatMessageDto[] getMessage(String roomId, String userId) {
+    private ChatMessageDto[] getMessage(String roomId, String userId) {
         URI uri = UriComponentsBuilder
                 .fromUriString(hostUrl)
                 .path("/chat/rooms/" + roomId + "/messages")
@@ -99,7 +100,7 @@ public class ChatController {
         return response.getBody();
     }
 
-    public ChatRoomDto getRoom(String roomId) {
+    private ChatRoomDto getRoom(String roomId) {
         URI uri = UriComponentsBuilder
                 .fromUriString(hostUrl)
                 .path("/chat/rooms/" + roomId)

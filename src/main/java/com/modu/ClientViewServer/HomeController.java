@@ -1,6 +1,7 @@
-package com.modu.ClientViewServer.member;
+package com.modu.ClientViewServer;
 
 import com.modu.ClientViewServer.config.EnvironmentValueConfig;
+import com.modu.ClientViewServer.member.SignUpDto;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
