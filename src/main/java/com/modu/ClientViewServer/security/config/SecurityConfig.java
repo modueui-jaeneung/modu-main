@@ -97,7 +97,7 @@ public class SecurityConfig {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         KeySpec keySpec = new X509EncodedKeySpec(encoded);
         RSAPublicKey publicKey = (RSAPublicKey) keyFactory.generatePublic(keySpec);
-        return NimbusJwtDecoder.withPublicKey(publicKey).build();
+            return NimbusJwtDecoder.withPublicKey(publicKey).build();
     }
 
     private byte[] getPublicKey() throws IOException {
