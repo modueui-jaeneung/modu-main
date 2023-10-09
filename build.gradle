@@ -34,6 +34,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	// bouncycastle for save RSAKey to file
+	implementation 'org.bouncycastle:bcprov-jdk16:1.46'
+
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
