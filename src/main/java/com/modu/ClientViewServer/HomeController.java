@@ -1,5 +1,6 @@
 package com.modu.ClientViewServer;
 
+import com.modu.ClientViewServer.Posts.PostDTO;
 import com.modu.ClientViewServer.config.EnvironmentValueConfig;
 import com.modu.ClientViewServer.member.SignUpDto;
 import jakarta.servlet.http.Cookie;
@@ -19,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
@@ -27,6 +29,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class HomeController {
+
+    @GetMapping("/login")
+    public String loginResponse(HttpServletRequest request, RedirectAttributes re) {
 
         String tokenValue = request.getParameter("tokenValue");
 
@@ -56,6 +61,8 @@ public class HomeController {
 //            model.addAttribute("postList", responsepost.getBody());
         return "index";
     }
+
+
 
 
     @GetMapping("/bookmark")
