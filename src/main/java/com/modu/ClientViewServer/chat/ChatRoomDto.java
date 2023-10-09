@@ -7,6 +7,7 @@ public class ChatRoomDto {
 
     private String roomId;
     private String ownerId;
+    private String participantId;
     private String title;
 
 }
