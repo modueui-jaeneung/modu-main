@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -34,7 +37,7 @@ public class HomeController {
     public String loginResponse(HttpServletRequest request, RedirectAttributes re) {
 
         String tokenValue = request.getParameter("tokenValue");
-        log.info("tokenValue={]", tokenValue);
+        log.info("tokenValue={}", tokenValue);
         if (tokenValue != null) {
             re.addFlashAttribute("access_token", tokenValue);
         }
@@ -45,20 +48,11 @@ public class HomeController {
     @GetMapping("/")
     public String index(@ModelAttribute("access_token") String token, Model model) {
         model.addAttribute("access_token", token);
-//        String uriString = UriComponentsBuilder
-//                    .newInstance()
-//                    .scheme("http")
-//                    .host("127.0.0.1")
-//                    .port(8084)
-//                    .path("/posts")
-//                    .build().toUriString();
-//
-//            HttpHeaders headers = new HttpHeaders();
-//            HttpEntity<String> entity = new HttpEntity<>(headers);
-//            ResponseEntity<List<PostDTO>> responsepost = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
-//            });
-//
-//            model.addAttribute("postList", responsepost.getBody());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof JwtAuthenticationToken) {
+
+        }
         log.info("view index page");
         return "index";
     }
