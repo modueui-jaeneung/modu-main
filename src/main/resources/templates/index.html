@@ -50,17 +50,14 @@
                             <a th:href="@{/signup}">회원가입</a>
                         </button>
                     </form>
-                    <form class="d-flex" id="login" style="justify-content: end;">
+                    <form class="d-flex" th:if="${isAuthenticated == 0}" id="login" style="justify-content: end;">
                         <button class="btn btn-outline-dark anonymous" type="submit">
                             <a th:href="@{http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/oauth2/authorization/springOAuth2}">로그인</a>
                         </button>
                     </form>
-                    <form class="d-flex authenticated" method="post" action="http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/logout" style="justify-content: end;">
+                    <form class="d-flex" th:if="${isAuthenticated == 1}" method="post" action="http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/logout" style="justify-content: end;">
                         <button type="submit" class="btn btn-outline-dark logout-button">로그아웃</button>
                     </form>
-                        <!--        <div id="isAuthenticated">-->
-                        <!--            <a th:href="@{http://127.0.0.1:8081/logout}">로그아웃</a>-->
-                        <!--        </div>-->
                     <!-- 로그인시 사용자탭 ,로그아웃 / 로그인정보 없으면 회원가입
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
@@ -161,48 +158,6 @@
         <!-- Include jQuery library -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script th:inline="javascript">
-            function isAuthenticated() {
-                const token = localStorage.getItem("access_token");
-                fetch("/authentication", {
-                    headers: {
-                        Authorization: "Bearer " + token
-                    },
-                    method: "GET"
-                })
-                    .then(response => {
-                        response.json().then(function (data) {
-                            console.log(data);
-                            if (data.message === '1') {
-                                console.log("authenticated");
-                                // authenticated
-                                document.querySelectorAll(".anonymous").forEach((el) => {
-                                    el.remove();
-                                })
-                            } else {
-                                // anonymous
-                                console.log("anonymous");
-                                document.querySelectorAll(".authenticated").forEach((el) => {
-                                    el.remove();
-                                })
-                            }
-                        })
-                    })
-            }
-            isAuthenticated();
-
-            // function signup() {
-            //     fetch("http://localhost:8083/members", {
-            //         method: "POST"
-            //     })
-            //         .then(response => {
-            //             console.log(response);
-            //             if (response.status === 201) {
-            //
-            //             } else {
-            //                 console.log("회원가입 실패...");
-            //             }
-            //         })
-            // }
 
             function setToken() {
                 const token = [[${access_token}]]
@@ -215,7 +170,7 @@
                 const token = localStorage.getItem("access_token");
                 $.ajax({
                     type: "GET",
-                    url: "http://ec2-3-34-91-45.ap-northeast-2.compute.amazonaws.com:8080/chat",
+                    url: "http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/chat",
                     headers: {
                         Authorization: 'Bearer ' + token
                     }

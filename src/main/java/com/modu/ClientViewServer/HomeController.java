@@ -51,7 +51,9 @@ public class HomeController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof JwtAuthenticationToken) {
-
+            model.addAttribute("isAuthenticated", 1);
+        } else {
+            model.addAttribute("isAuthenticated", 0);
         }
         log.info("view index page");
         return "index";
