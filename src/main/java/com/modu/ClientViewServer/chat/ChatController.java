@@ -3,6 +3,7 @@ package com.modu.ClientViewServer.chat;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -25,7 +26,8 @@ import java.util.stream.Stream;
 public class ChatController {
 
     private final RestTemplate restTemplate;
-    private final String hostUrl = "http://localhost:8085";
+    @Value("${kubernetes.host}")
+    private String hostUrl;
 
     @GetMapping("/chat")
     public String chatIndex(Model model, @AuthenticationPrincipal Jwt jwt) {
