@@ -40,6 +40,7 @@ import java.security.spec.X509EncodedKeySpec;
 public class SecurityConfig {
 
     private final RestTemplate restTemplate;
+    private final String AUTHORIZATION_HOST = "authorization-service";
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -103,7 +104,7 @@ public class SecurityConfig {
     private byte[] getPublicKey() throws IOException {
         String urlString = UriComponentsBuilder.newInstance()
                 .scheme("http")
-                .host("127.0.0.1")
+                .host(AUTHORIZATION_HOST)
                 .port(9000)
                 .path("/publicKey")
                 .build().toString();
