@@ -28,7 +28,7 @@ public class MemberController {
 
     private final RestTemplate restTemplate;
     private final EnvironmentValueConfig envConfig;
-    private static final String LOCALHOST = "10.200.31.39";
+    private static final String LOCALHOST = "localhost";
 
     @GetMapping("/signup")
     public String signup(Model model) {
