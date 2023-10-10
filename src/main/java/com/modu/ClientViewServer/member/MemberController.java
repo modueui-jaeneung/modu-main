@@ -2,7 +2,6 @@ package com.modu.ClientViewServer.member;
 
 import com.modu.ClientViewServer.HomeController;
 import com.modu.ClientViewServer.config.EnvironmentValueConfig;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +27,12 @@ import java.util.List;
 public class MemberController {
 
     private final RestTemplate restTemplate;
-    private final EnvironmentValueConfig environmentValueConfig;
-    private static String MEMBER_SERVER_HOST = "localhost";
+    private final EnvironmentValueConfig envConfig;
 
     @GetMapping("/signup")
     public String signup(Model model) {
 
-        String kakaoRestApiKey = environmentValueConfig.kakaoRestApiKey;
+        String kakaoRestApiKey = envConfig.kakaoRestApiKey;
         model.addAttribute("kakaoRestApiKey", kakaoRestApiKey);
 
         return "member/signup";
@@ -46,8 +44,8 @@ public class MemberController {
         String uriString = UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host(MEMBER_SERVER_HOST)
-                .port(8083)
+                .host(envConfig.kubernetesHost)
+                .port(80)
                 .path("/members")
                 .build().toUriString();
 
@@ -97,7 +95,7 @@ public class MemberController {
             log.info("memberInfo={}", memberInfoResponse.getBody());
             model.addAttribute("memberInfo", memberInfoResponse.getBody());
 
-            String kakaoRestApiKey = environmentValueConfig.kakaoRestApiKey;
+            String kakaoRestApiKey = envConfig.kakaoRestApiKey;
             model.addAttribute("kakaoRestApiKey", kakaoRestApiKey);
 
             return "member/updateInfo";

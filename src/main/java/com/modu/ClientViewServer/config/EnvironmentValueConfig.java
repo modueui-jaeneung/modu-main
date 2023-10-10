@@ -8,4 +8,7 @@ public class EnvironmentValueConfig {
 
     @Value("${kakao.restApiKey}")
     public String kakaoRestApiKey;
+
+    @Value("${kubernetes.host}")
+    public String kubernetesHost;
 }

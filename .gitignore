@@ -38,6 +38,3 @@ out/
 
 ### application.yml ###
 src/main/resources/application.yml
-
-### modu-main-submodule ###
-#modu-main-submodule
