@@ -30,15 +30,15 @@ import java.util.List;
 @Slf4j
 public class HomeController {
 
-    @GetMapping("/login")
+    @GetMapping("/loginReceive")
     public String loginResponse(HttpServletRequest request, RedirectAttributes re) {
 
         String tokenValue = request.getParameter("tokenValue");
-
+        log.info("tokenValue={]", tokenValue);
         if (tokenValue != null) {
             re.addFlashAttribute("access_token", tokenValue);
         }
-
+        log.info("redirect to GET /");
         return "redirect:/";
     }
 
@@ -59,6 +59,7 @@ public class HomeController {
 //            });
 //
 //            model.addAttribute("postList", responsepost.getBody());
+        log.info("view index page");
         return "index";
     }
 

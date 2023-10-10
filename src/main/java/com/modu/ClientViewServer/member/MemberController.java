@@ -28,7 +28,7 @@ public class MemberController {
 
     private final RestTemplate restTemplate;
     private final EnvironmentValueConfig envConfig;
-    private static final String LOCALHOST = "localhost";
+    private static final String MEMBER_SERVICE = "member-service";
 
     @GetMapping("/signup")
     public String signup(Model model) {
@@ -81,8 +81,7 @@ public class MemberController {
 
         String uriString = UriComponentsBuilder.newInstance()
                 .scheme("http")
-                .host(LOCALHOST)
-                .port(9001)
+                .host(MEMBER_SERVICE)
                 .path("/members/info")
                 .build().toUriString();
 
@@ -125,8 +124,7 @@ public class MemberController {
         String uriString = UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host(LOCALHOST)
-                .port(9001)
+                .host(MEMBER_SERVICE)
                 .path("/members/info")
                 .queryParams(map)
                 .build().toUriString();
