@@ -52,10 +52,10 @@
                     </form>
                     <form class="d-flex" id="login" style="justify-content: end;">
                         <button class="btn btn-outline-dark anonymous" type="submit">
-                            <a th:href="@{http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com:8081/oauth2/authorization/springOAuth2}">로그인</a>
+                            <a th:href="@{http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/oauth2/authorization/springOAuth2}">로그인</a>
                         </button>
                     </form>
-                    <form class="d-flex authenticated" method="post" action="http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com:8081/logout" style="justify-content: end;">
+                    <form class="d-flex authenticated" method="post" action="http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/logout" style="justify-content: end;">
                         <button type="submit" class="btn btn-outline-dark logout-button">로그아웃</button>
                     </form>
                         <!--        <div id="isAuthenticated">-->
