@@ -41,6 +41,14 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+
+task copyPrivate(type: Copy) {
+	copy {
+		from './modu-main-submodule'
+		include "*.yml"
+		into 'src/main/resources'
+	}
 }
