@@ -9,3 +9,6 @@ spring:
 
 kakao:
   restApiKey: 47a59ca69b7300526615f12d8537e400
+
+kubernetes:
+  host: k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com
