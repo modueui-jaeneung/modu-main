@@ -26,8 +26,8 @@ import java.util.stream.Stream;
 public class ChatController {
 
     private final RestTemplate restTemplate;
-    @Value("${kubernetes.host}")
-    private String hostUrl;
+    // @Value("${kubernetes.host}")
+    private final String hostUrl = "chat-service:8085";
 
     @GetMapping("/chat")
     public String chatIndex(Model model, @AuthenticationPrincipal Jwt jwt) {
