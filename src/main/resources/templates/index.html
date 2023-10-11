@@ -170,7 +170,7 @@
                 const token = localStorage.getItem("access_token");
                 $.ajax({
                     type: "GET",
-                    url: "http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/chat",
+                    url: "http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/auth/chat",
                     headers: {
                         Authorization: 'Bearer ' + token
                     },
