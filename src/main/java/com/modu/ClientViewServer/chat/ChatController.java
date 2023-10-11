@@ -45,12 +45,11 @@ public class ChatController {
     }
 
     @GetMapping("/enter-chat")
-    public String chatIndex(Model model, @AuthenticationPrincipal Jwt jwt) {
+    public String chatIndex(Model model) {
 
-        String userId = jwt.getSubject();
-        log.info("userId by jwt={}", userId);
+        String userId = "참석자2";
+//        log.info("userId by jwt={}", userId);
 
-        log.info("전달된 userId = {}", userId);
         URI uri = UriComponentsBuilder
                 .fromUriString(hostUrl)
                 .path("/chat/rooms")
@@ -68,8 +67,8 @@ public class ChatController {
     }
 
     @GetMapping("/chat/{roomId}")
-    public String enterRoom(@PathVariable String roomId, Model model, @AuthenticationPrincipal Jwt jwt) {
-        String userId = jwt.getSubject();
+    public String enterRoom(@PathVariable String roomId, Model model) {
+        String userId = "참석자2";
 
         // 채팅방 데이터
         ChatRoomDto[] rooms = this.getRooms(userId);
