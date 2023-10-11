@@ -94,7 +94,7 @@ public class MemberController {
             ResponseEntity<HomeController.MemberInfoResponseDto> memberInfoResponse = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
             });
             if (memberInfoResponse.getStatusCode() != HttpStatus.OK) {
-                return "index";
+                return "redirect:/";
             }
 
             log.info("memberInfo={}", memberInfoResponse.getBody());
