@@ -9,9 +9,6 @@ public class EnvironmentValueConfig {
     @Value("${kakao.restApiKey}")
     public String kakaoRestApiKey;
 
-    @Value("${naver.ncpClientId}")
-    public String ncpClientId;
-
     @Value("${kubernetes.host}")
     public String kubernetesHost;
 }
