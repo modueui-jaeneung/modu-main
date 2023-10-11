@@ -18,7 +18,7 @@
         <link th:href="@{/static/css/postdetail.css}" rel="stylesheet" type="text/css"/>
 </head>
     <body>
-    <div class="py-5" th:insert="~{fragments/header :: headerFragment}">...</div>
+    <div th:insert="~{fragments/header :: headerFragment}">...</div>
         <!-- Page content-->
         <div class="container mt-5" th:each="postList : ${postList}">
             <div class="row">
