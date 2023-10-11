@@ -49,12 +49,12 @@ public class HomeController {
     public String index(@ModelAttribute("access_token") String token, Model model) {
         model.addAttribute("access_token", token);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof JwtAuthenticationToken) {
-            model.addAttribute("isAuthenticated", 1);
-        } else {
-            model.addAttribute("isAuthenticated", 0);
-        }
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication instanceof JwtAuthenticationToken) {
+//            model.addAttribute("isAuthenticated", 1);
+//        } else {
+//            model.addAttribute("isAuthenticated", 0);
+//        }
         log.info("view index page");
         return "index";
     }
