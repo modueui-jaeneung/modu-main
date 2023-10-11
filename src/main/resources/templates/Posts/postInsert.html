@@ -92,7 +92,7 @@
                 <div class="card-body">
                     <div class="input-group">
                         <button class="btn btn-primary" id="button-search" type="submit">글작성</button>
-                        <button class="btn btn-primary " id="button-back" th:onclick="|location.href='@{/posts}'|" type="button" >취소</button>
+                        <button class="btn btn-primary " id="button-back" th:onclick="|location.href='@{/}'|" type="button" >취소</button>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                         <input class="form-control" type="datetime-local" th:field="*{startTime}" />
                         <input class="form-control" type="datetime-local" th:field="*{endTime}" />
                         <input class="form-control" type="number" min="0" max="10000" maxlength="5" th:field="*{price}" />
-                        <input class="form-control" type="text" th:field="*{postAddress}" placeholder="서울시 용산구 " />
+                        <input class="form-control" type="text" th:field="*{postAddress}" placeholder="위치를 입력하세요 " />
                     </div>
                 </div>
             </div>
