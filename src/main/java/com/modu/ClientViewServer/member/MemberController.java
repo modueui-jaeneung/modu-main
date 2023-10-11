@@ -55,6 +55,7 @@ public class MemberController {
 
         ResponseEntity<HomeController.Message> response;
         try {
+            log.info("rest request url = {}", uriString);
             response = restTemplate.exchange(uriString, HttpMethod.POST, entity, new ParameterizedTypeReference<>() {});
             if (response.getStatusCode() == HttpStatus.CREATED) {
                 return "index";
