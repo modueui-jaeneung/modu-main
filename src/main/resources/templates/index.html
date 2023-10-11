@@ -173,7 +173,15 @@
                     url: "http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/chat",
                     headers: {
                         Authorization: 'Bearer ' + token
+                    },
+                    success: function(data) {
+                        // Ajax 요청이 성공한 경우, data에 응답 데이터가 들어옵니다.
+                        // 여기에서 페이지를 리디렉트하거나 다른 작업을 수행합니다.
+                        if (data.success === true) { // 예를 들어, 서버에서 success 필드를 확인
+                            window.location.href = "chat/chat.html"; // 페이지 리디렉션
+                        }
                     }
+
                 })
             }
 

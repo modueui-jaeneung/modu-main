@@ -1,6 +1,7 @@
 package com.modu.ClientViewServer.chat;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,17 +33,19 @@ public class ChatController {
     private final String hostUrl = "http://chat-service:8085";
 
     @GetMapping("/chat")
-    public String chatAuth(RedirectAttributes re, @AuthenticationPrincipal Jwt jwt) {
+    public String chatAuth(RedirectAttributes re, @AuthenticationPrincipal Jwt jwt, HttpServletResponse response) {
         String userId = jwt.getSubject();
         log.info("userId by jwt={}", userId);
         re.addFlashAttribute("userId", userId);
+        response.setStatus(200);
 
-        return "redirect:/enter-chat";
+        return "index";
     }
 
     @GetMapping("/enter-chat")
     public String chatIndex(@ModelAttribute("userId") String userId, Model model) {
 
+        log.info("전달된 userId = {}", userId);
         URI uri = UriComponentsBuilder
                 .fromUriString(hostUrl)
                 .path("/chat/rooms")
