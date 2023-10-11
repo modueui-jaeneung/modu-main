@@ -58,14 +58,15 @@ public class MemberController {
             log.info("rest request url = {}", uriString);
             response = restTemplate.exchange(uriString, HttpMethod.POST, entity, new ParameterizedTypeReference<>() {});
             if (response.getStatusCode() == HttpStatus.CREATED) {
-                return "redirect:/";
+                log.info("POST /members 회원가입 요청 성공");
+                return "index";
             }
         } catch (HttpClientErrorException e) {
             log.error(e.getMessage());
-            return "redirect:/signup";
+            return "member/signup";
         }
 
-        return "redirect:/signup";
+        return "member/signup";
     }
 
     /**
