@@ -122,16 +122,12 @@
         </form>
     </div>
 </div>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-</footer>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="../../../../../../../Downloads/startbootstrap-blog-post-gh-pages/js/scripts.js"></script>
+<!--<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${ncpClientId}"></script>-->
 <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=o3v23xr70r"></script>
-o3v23xr70r
 <script>
     $(document).ready(function() {
         $('#summernote').summernote();
@@ -171,5 +167,7 @@ o3v23xr70r
 
      var marker = new naver.maps.Marker(markerOptions);
 </script>
+<!-- Footer-->
+<div class="py-5 bg-dark" th:insert="~{fragments/footer :: footerFragment}">...</div>
 </body>
 </html>
