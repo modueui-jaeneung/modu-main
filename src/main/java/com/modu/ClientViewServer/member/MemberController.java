@@ -108,7 +108,7 @@ public class MemberController {
             return "redirect:/";
         }
     }
-    //
+
 
     @PostMapping("/updateInfo")
     public String updateInfo(HttpServletRequest request,
