@@ -44,7 +44,7 @@ public class ChatController {
 //        view.forward(request, response);
 //    }
 
-    @GetMapping("/chat")
+    @GetMapping("/chatting")
     public String chatIndex(Model model) {
 
         String userId = "참석자2";
