@@ -51,7 +51,7 @@ public class SecurityConfig {
 
         http
                 .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")));
+                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")));
 
         http.oauth2ResourceServer((resourceServer) -> resourceServer
                 .jwt(Customizer.withDefaults()));
