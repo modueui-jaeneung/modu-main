@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -33,11 +34,9 @@ public class ChatController {
     private final String hostUrl = "http://chat-service:8085";
 
     @GetMapping("/chat")
-    public String chatAuth(RedirectAttributes re, @AuthenticationPrincipal Jwt jwt, HttpServletResponse response) {
-        String userId = jwt.getSubject();
-        log.info("userId by jwt={}", userId);
-        re.addFlashAttribute("userId", userId);
-        response.setStatus(200);
+    public String chatAuth(@RequestParam("access_token") String token, RedirectAttributes re) {
+        log.info("token={}", token);
+        re.addFlashAttribute("userId", token);
 
         return "index";
     }
