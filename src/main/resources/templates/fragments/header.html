@@ -18,7 +18,7 @@
   </head>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-      <a class="navbar-brand" href="#!">모두의 재능</a>
+      <a class="navbar-brand" th:href="@{'/'}">모두의 재능</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -35,7 +35,7 @@
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" th:href="@{'/'}">게시판</a></li>
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">채팅</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/chatting}">채팅</a></li>
         </ul>
         <!--                    <form class="d-flex">-->
         <!--                        <button class="btn btn-outline-dark" type="submit">-->
@@ -50,10 +50,10 @@
         </form>
         <form class="d-flex" id="login" style="justify-content: end;">
           <button class="btn anonymous" type="submit">
-            <a th:href="@{http://127.0.0.1:8081/oauth2/authorization/springOAuth2}" class="nav-link px-2 link-dark">로그인</a>
+            <a th:href="@{http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/oauth2/authorization/springOAuth2}" class="nav-link px-2 link-dark">로그인</a>
           </button>
         </form>
-        <form calss="d-flex authenticated" method="post" action="http://127.0.0.1:8081/logout" style="justify-content: end;">
+        <form calss="d-flex authenticated" method="post" action="http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/logout" style="justify-content: end;">
           <button type="submit" class="btn logout-button nav-link px-2 link-dark">로그아웃</button>
         </form>
         <!--        <div id="isAuthenticated">-->
