@@ -25,6 +25,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class MemberController {
+    // test
 
     private final RestTemplate restTemplate;
     private final EnvironmentValueConfig envConfig;
