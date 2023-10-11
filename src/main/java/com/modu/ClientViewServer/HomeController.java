@@ -33,6 +33,12 @@ import java.util.List;
 @Slf4j
 public class HomeController {
 
+    private final RestTemplate restTemplate;
+    private final EnvironmentValueConfig environmentValueConfig;
+
+    private static String POST_SERVER_HOST = "post-service";
+
+
     // CICD pipeline test
 
     @GetMapping("/loginReceive")
@@ -48,8 +54,9 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String index(@ModelAttribute("access_token") String token, Model model) {
+    public String index(@ModelAttribute("access_token") String token, Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute("access_token", token);
+
 
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        if (authentication instanceof JwtAuthenticationToken) {
@@ -57,12 +64,24 @@ public class HomeController {
 //        } else {
 //            model.addAttribute("isAuthenticated", 0);
 //        }
+      
+      String uriString = UriComponentsBuilder
+                .newInstance()
+                .scheme("http")
+                .host(POST_SERVER_HOST)
+                .port(8084)
+                .path("/posts")
+                .build().toUriString();
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<List<PostDTO>> responsepost = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
+        });
+
+        model.addAttribute("postList", responsepost.getBody());
         log.info("view index page");
         return "index";
     }
-
-
-
 
     @GetMapping("/bookmark")
     public String bookmark() {
