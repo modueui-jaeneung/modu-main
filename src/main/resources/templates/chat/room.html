@@ -417,6 +417,7 @@
     $(function(){
 
         const host = [[${hostUrl}]]
+        console.log('host={}' + host)
         const socket = new SockJS(host + '/chat/ws')
         let stompClient = Stomp.over(socket)
 

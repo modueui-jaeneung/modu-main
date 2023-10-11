@@ -33,8 +33,8 @@ import java.util.stream.Stream;
 public class ChatController {
 
     private final RestTemplate restTemplate;
-    // @Value("${kubernetes.host}")
-    private final String hostUrl = "http://chat-service:8085";
+     @Value("${kubernetes.host}")
+    private String hostUrl;
 
 //    @GetMapping("/chat")
 //    public void chatAuth(@RequestParam("access_token") String token, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
