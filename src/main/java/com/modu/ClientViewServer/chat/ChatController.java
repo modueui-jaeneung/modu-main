@@ -29,11 +29,17 @@ public class ChatController {
     // @Value("${kubernetes.host}")
     private final String hostUrl = "http://chat-service:8085";
 
-    @GetMapping("/chat")
-    public String chatIndex(Model model, @AuthenticationPrincipal Jwt jwt) {
-
-        log.info("jwt={}", jwt.toString());
+    @GetMapping("/auth/chat")
+    public String chatAuth(Model model, @AuthenticationPrincipal Jwt jwt) {
         String userId = jwt.getSubject();
+        log.info("userId by jwt={}", userId);
+
+        return "ok";
+    }
+
+    @GetMapping("/chat")
+    public String chatIndex(Model model) {
+        String userId = "참석자2";
 
         URI uri = UriComponentsBuilder
                 .fromUriString(hostUrl)

@@ -173,6 +173,12 @@
                     url: "http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/chat",
                     headers: {
                         Authorization: 'Bearer ' + token
+                    },
+                    statusCode: {
+                        200: function() {
+                            // Success! Redirect to the dashboard page
+                            window.location.href = '/chat';
+                        }
                     }
                 })
             }

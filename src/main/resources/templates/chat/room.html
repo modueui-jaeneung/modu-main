@@ -416,7 +416,8 @@
 
     $(function(){
 
-        const socket = new SockJS('localhost:8085/ws')
+        const host = [[${hostUrl}]]
+        const socket = new SockJS(host + '/chat/ws')
         let stompClient = Stomp.over(socket)
 
         // connection이 맺어지면 실행
