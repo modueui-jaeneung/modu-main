@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -34,15 +35,17 @@ public class ChatController {
     private final String hostUrl = "http://chat-service:8085";
 
     @GetMapping("/chat")
-    public String chatAuth(@RequestParam("access_token") String token, RedirectAttributes re) {
+    public void chatAuth(@RequestParam("access_token") String token, HttpServletResponse response) throws IOException {
         log.info("token={}", token);
-        re.addFlashAttribute("userId", token);
-
-        return "index";
+        response.setHeader("Authorization", "Bearer " + token);
+        response.sendRedirect("/enter-chat");
     }
 
     @GetMapping("/enter-chat")
-    public String chatIndex(@ModelAttribute("userId") String userId, Model model) {
+    public String chatIndex(Model model, @AuthenticationPrincipal Jwt jwt) {
+
+        String userId = jwt.getSubject();
+        log.info("userId by jwt={}", userId);
 
         log.info("전달된 userId = {}", userId);
         URI uri = UriComponentsBuilder
