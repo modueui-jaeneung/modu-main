@@ -33,8 +33,7 @@ import java.util.stream.Stream;
 public class ChatController {
 
     private final RestTemplate restTemplate;
-     @Value("${kubernetes.host}")
-    private String hostUrl;
+    private final String hostUrl = "http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com";
 
 //    @GetMapping("/chat")
 //    public void chatAuth(@RequestParam("access_token") String token, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
