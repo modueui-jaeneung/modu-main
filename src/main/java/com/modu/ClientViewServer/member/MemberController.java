@@ -130,6 +130,7 @@ public class MemberController {
                 .newInstance()
                 .scheme("http")
                 .host(MEMBER_SERVICE)
+                .port(8086)
                 .path("/members/info")
                 .queryParams(map)
                 .build().toUriString();
