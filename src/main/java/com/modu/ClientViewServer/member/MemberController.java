@@ -45,9 +45,9 @@ public class MemberController {
         String uriString = UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host(envConfig.kubernetesHost)
+                .host(MEMBER_SERVICE)
                 .port(80)
-                .path("/member/members")
+                .path("/members")
                 .build().toUriString();
 
         HttpHeaders headers = new HttpHeaders();
