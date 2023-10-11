@@ -33,7 +33,7 @@ import java.util.List;
 @Slf4j
 public class HomeController {
 
-    // CICD Test
+    // CICD pipeline test
 
     @GetMapping("/loginReceive")
     public String loginResponse(HttpServletRequest request, RedirectAttributes re) {
