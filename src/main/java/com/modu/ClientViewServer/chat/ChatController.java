@@ -65,7 +65,7 @@ public class ChatController {
         return "chat/chat";
     }
 
-    @GetMapping("/chat/{roomId}")
+    @GetMapping("/chatting/{roomId}")
     public String enterRoom(@PathVariable String roomId, Model model) {
         String userId = "참석자2";
 
