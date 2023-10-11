@@ -61,14 +61,14 @@ public class MemberController {
             response = restTemplate.exchange(uriString, HttpMethod.POST, entity, new ParameterizedTypeReference<>() {});
             if (response.getStatusCode() == HttpStatus.CREATED) {
                 log.info("POST /members 회원가입 요청 성공");
-                return "index";
+                return "redirect:/";
             }
         } catch (HttpClientErrorException e) {
             log.error(e.getMessage());
-            return "member/signup";
+            return "/member/signup";
         }
 
-        return "member/signup";
+        return "/member/signup";
     }
 
     /**
@@ -105,7 +105,7 @@ public class MemberController {
 
             return "member/updateInfo";
         } catch (HttpClientErrorException e) {
-            return "index";
+            return "redirect:/";
         }
     }
 
@@ -141,11 +141,11 @@ public class MemberController {
             ResponseEntity<HomeController.Message> response = restTemplate.exchange(uriString, HttpMethod.PUT, entity, new ParameterizedTypeReference<>() {
             });
             if (response.getStatusCode() == HttpStatus.OK) {
-                return "index";
+                return "redirect:/";
             }
         } catch (HttpClientErrorException e) {
             return "redirect:/updateInfo";
         }
-        return "index";
+        return "redirect:/";
     }
 }
