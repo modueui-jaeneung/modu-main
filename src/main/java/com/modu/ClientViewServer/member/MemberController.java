@@ -87,7 +87,7 @@ public class MemberController {
                 .scheme("http")
                 .host(MEMBER_SERVICE)
                 .port(8086)
-                .path("/members/info")
+                .path("/members/info/1")
                 .build().toUriString();
 
         try {
