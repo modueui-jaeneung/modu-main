@@ -34,8 +34,6 @@ import java.util.List;
 public class HomeController {
 
     private final RestTemplate restTemplate;
-    private final EnvironmentValueConfig environmentValueConfig;
-
     private static String POST_SERVER_HOST = "post-service";
 
 

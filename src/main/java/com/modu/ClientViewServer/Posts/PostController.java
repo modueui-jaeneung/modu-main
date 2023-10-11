@@ -26,11 +26,7 @@ import java.util.List;
 public class PostController {
     private final RestTemplate restTemplate;
     private final String POST_SERVER_HOST = "post-service";
-    private final EnvironmentValueConfig environmentValueConfig;
-    String ncpClientId;
 
-
-    
     @GetMapping("/posts/{postId}")
     public String PostDetail(Model model, @PathVariable("postId") long postId) {
         /* 상세페이지 이동 */
@@ -53,8 +49,6 @@ public class PostController {
     public String PostInsertPage(Model model) {
         /* 글작성 페이지 이동*/
         PostDTO postdto = new PostDTO();
-        String ncpClientId = environmentValueConfig.ncpClientId;
-        model.addAttribute("ncpClientId", ncpClientId);
         model.addAttribute("postdto", postdto);
         return "Posts/postInsert";
     }
@@ -108,8 +102,6 @@ public class PostController {
         ResponseEntity<PostDTO> responsepost = restTemplate.exchange(uriString, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
         });
 
-        ncpClientId = environmentValueConfig.ncpClientId;
-        model.addAttribute("ncpClientId", ncpClientId);
         model.addAttribute("postdto", responsepost.getBody());
         return "Posts/postUpdate";
     }
