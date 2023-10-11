@@ -34,7 +34,7 @@ public class ChatController {
         String userId = jwt.getSubject();
         log.info("userId by jwt={}", userId);
 
-        return "ok";
+        return "index";
     }
 
     @GetMapping("/enter-chat")
