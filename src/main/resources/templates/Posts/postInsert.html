@@ -43,7 +43,6 @@
             </ul>
         </div>
     </div>
-
 </nav>
 <!-- Page content-->
 <div class="container mt-5">
@@ -100,14 +99,14 @@
            <!-- Side widget-->
             <div class="card mb-4">
                 <div class="card-header">정 보 </div>
-                <div class="card-body">
-                    <input class="form-control" type="datetime-local" th:field="*{startTime}" />
-                    <input class="form-control" type="datetime-local" th:field="*{endTime}" />
-                    <input class="form-control" type="number" min="0" max="10000" maxlength="5" th:field="*{price}" />
-                    <input class="form-control" type="text" th:field="*{postAddress}" placeholder="서울시 용산구 " />
+                    <div class="card-body">
+                        <input class="form-control" type="datetime-local" th:field="*{startTime}" />
+                        <input class="form-control" type="datetime-local" th:field="*{endTime}" />
+                        <input class="form-control" type="number" min="0" max="10000" maxlength="5" th:field="*{price}" />
+                        <input class="form-control" type="text" th:field="*{postAddress}" placeholder="서울시 용산구 " />
+                    </div>
                 </div>
             </div>
-        </div>
         </form>
     </div>
 </div>
