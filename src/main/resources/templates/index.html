@@ -13,7 +13,7 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link th:href="@{/static/css/posts.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{../static/css/posts.css}" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <!-- header 분리하기 -->
@@ -36,7 +36,7 @@
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" th:href="@{'/'}">게시판</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">채팅</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/chatting}">채팅</a></li>
                     </ul>
 <!--                    <form class="d-flex">-->
 <!--                        <button class="btn btn-outline-dark" type="submit">-->
@@ -51,15 +51,12 @@
                     </form>
                     <form class="d-flex" id="login" style="justify-content: end;">
                         <button class="btn anonymous" type="submit">
-                            <a th:href="@{http://127.0.0.1:8081/oauth2/authorization/springOAuth2}" class="nav-link px-2 link-dark" >로그인</a>
+                            <a th:href="@{http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/oauth2/authorization/springOAuth2}" class="nav-link px-2 link-dark" >로그인</a>
                         </button>
                     </form>
-                    <form calss="d-flex authenticated" method="post" action="http://127.0.0.1:8081/logout" style="justify-content: end;">
+                    <form class="d-flex authenticated" method="post" action="http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/logout" style="justify-content: end;">
                         <button type="submit" class="btn logout-button nav-link px-2 link-dark" style="border: none; background-color: #f8f9fa">로그아웃</button>
                     </form>
-                        <!--        <div id="isAuthenticated">-->
-                        <!--            <a th:href="@{http://127.0.0.1:8081/logout}">로그아웃</a>-->
-                        <!--        </div>-->
                     <!-- 로그인시 사용자탭 ,로그아웃 / 로그인정보 없으면 회원가입
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
@@ -160,45 +157,33 @@
         <script src="../static/js/scripts.js"></script>
         <!-- Include jQuery library -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            function isAuthenticated() {
-                fetch("/authentication", {
-                    method: "GET"
-                })
-                    .then(response => {
-                        response.json().then(function (data) {
-                            console.log(data);
-                            if (data.message === '1') {
-                                console.log("authenticated");
-                                // authenticated
-                                document.querySelectorAll(".anonymous").forEach((el) => {
-                                    el.remove();
-                                })
-                            } else {
-                                // anonymous
-                                console.log("anonymous");
-                                document.querySelectorAll(".authenticated").forEach((el) => {
-                                    el.remove();
-                                })
-                            }
-                        })
-                    })
+        <script th:inline="javascript">
+
+            function setToken() {
+                const token = [[${access_token}]]
+                localStorage.setItem("access_token", token);
             }
-            isAuthenticated();
+            setToken()
 
-            function signup() {
-                fetch("http://localhost:8083/members", {
-                    method: "POST"
-                })
-                    .then(response => {
-                        console.log(response);
-                        if (response.status === 201) {
+            function chatApiCall() {
 
-                        } else {
-                            console.log("회원가입 실패...");
+                const token = localStorage.getItem("access_token");
+                $.ajax({
+                    type: "GET",
+                    url: "http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com/chat",
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    },
+                    success: function(response) {
+                        // Ajax 요청이 성공한 경우, data에 응답 데이터가 들어옵니다.
+                        // 여기에서 페이지를 리디렉트하거나 다른 작업을 수행합니다.
+                        if (response.success === true) { // 예를 들어, 서버에서 success 필드를 확인
+                            window.location.href = "chat/chat.html"; // 페이지 리디렉션
                         }
-                    })
+                    }
+                })
             }
+
         </script>
         <script src="/path/to/heart-toggle.js"></script>
         <script>

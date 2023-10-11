@@ -33,7 +33,7 @@
             <tr th:each="room : ${rooms}">
                 <td th:text="${room.roomId}">룸 아이디</td>
                 <td th:text="${room.title}">채팅방 Title</td>
-                <td><a href="item.html" th:href="@{|/chat/${room.roomId}|}" th:text="${room.title}">링크</a></td>
+                <td><a href="item.html" th:href="@{|/chatting/${room.roomId}|}" th:text="${room.title}">링크</a></td>
             </tr>
             </tbody>
         </table>

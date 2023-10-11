@@ -3,6 +3,8 @@ package com.modu.ClientViewServer.Posts;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.modu.ClientViewServer.config.EnvironmentValueConfig;
 import com.modu.ClientViewServer.utils.UrlUtils;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 
 @Controller
@@ -23,6 +28,9 @@ public class PostController {
     private final String POST_SERVER_HOST = "post-service";
     private final EnvironmentValueConfig environmentValueConfig;
     String ncpClientId;
+
+
+    
     @GetMapping("/posts/{postId}")
     public String PostDetail(Model model, @PathVariable("postId") long postId) {
         /* 상세페이지 이동 */
