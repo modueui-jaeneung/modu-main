@@ -26,6 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberController {
     // test
+    // test
 
     private final RestTemplate restTemplate;
     private final EnvironmentValueConfig envConfig;
