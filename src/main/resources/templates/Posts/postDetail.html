@@ -3,7 +3,8 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="" />
         <meta name="author" content="" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +18,7 @@
         <link th:href="@{/static/css/postdetail.css}" rel="stylesheet" type="text/css"/>
 </head>
     <body>
-    <div class="py-5 bg-dark" th:insert="~{fragments/header :: headerFragment}">...</div>
+    <div class="py-5" th:insert="~{fragments/header :: headerFragment}">...</div>
         <!-- Page content-->
         <div class="container mt-5" th:each="postList : ${postList}">
             <div class="row">
