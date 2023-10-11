@@ -36,15 +36,15 @@ public class ChatController {
     // @Value("${kubernetes.host}")
     private final String hostUrl = "http://chat-service:8085";
 
-    @GetMapping("/chat")
-    public void chatAuth(@RequestParam("access_token") String token, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
-        log.info("token={}", token);
-        response.setHeader("Authorization", "Bearer " + token);
-        RequestDispatcher view = request.getRequestDispatcher("/enter-chat");
-        view.forward(request, response);
-    }
+//    @GetMapping("/chat")
+//    public void chatAuth(@RequestParam("access_token") String token, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
+//        log.info("token={}", token);
+//        response.setHeader("Authorization", "Bearer " + token);
+//        RequestDispatcher view = request.getRequestDispatcher("/enter-chat");
+//        view.forward(request, response);
+//    }
 
-    @GetMapping("/enter-chat")
+    @GetMapping("/chat")
     public String chatIndex(Model model) {
 
         String userId = "참석자2";
