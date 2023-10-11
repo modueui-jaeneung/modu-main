@@ -1,4 +1,0 @@
-[submodule "modu-main-submodule"]
-	path = modu-main-submodule
-	url = https://github.com/modueui-jaeneung/modu-main-submodule
-    branch = main
