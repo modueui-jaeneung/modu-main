@@ -46,7 +46,6 @@ public class MemberController {
                 .newInstance()
                 .scheme("http")
                 .host(MEMBER_SERVICE)
-                .port(80)
                 .path("/members")
                 .build().toUriString();
 
