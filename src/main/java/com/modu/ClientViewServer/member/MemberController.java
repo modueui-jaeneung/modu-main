@@ -46,6 +46,7 @@ public class MemberController {
                 .newInstance()
                 .scheme("http")
                 .host(MEMBER_SERVICE)
+                .port(8086)
                 .path("/members")
                 .build().toUriString();
 
@@ -83,6 +84,7 @@ public class MemberController {
         String uriString = UriComponentsBuilder.newInstance()
                 .scheme("http")
                 .host(MEMBER_SERVICE)
+                .port(8086)
                 .path("/members/info")
                 .build().toUriString();
 
