@@ -48,7 +48,7 @@ public class ChatController {
     public String chatIndex(Model model) {
 
         String userId = "참석자2";
-//        log.info("userId by jwt={}", userId);
+        log.info("userId by jwt={}", userId);
 
         URI uri = UriComponentsBuilder
                 .fromUriString(hostUrl)
