@@ -1,5 +1,7 @@
 package com.modu.ClientViewServer.chat;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -35,10 +37,11 @@ public class ChatController {
     private final String hostUrl = "http://chat-service:8085";
 
     @GetMapping("/chat")
-    public void chatAuth(@RequestParam("access_token") String token, HttpServletResponse response) throws IOException {
+    public void chatAuth(@RequestParam("access_token") String token, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
         log.info("token={}", token);
         response.setHeader("Authorization", "Bearer " + token);
-        response.sendRedirect("/enter-chat");
+        RequestDispatcher view = request.getRequestDispatcher("/enter-chat");
+        view.forward(request, response);
     }
 
     @GetMapping("/enter-chat")
