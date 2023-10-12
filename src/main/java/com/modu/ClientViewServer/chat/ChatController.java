@@ -35,18 +35,10 @@ public class ChatController {
     private final RestTemplate restTemplate;
     private final String hostUrl = "http://k8s-default-ingressa-4b6b2be1f4-1396498365.ap-northeast-2.elb.amazonaws.com";
 
-//    @GetMapping("/chat")
-//    public void chatAuth(@RequestParam("access_token") String token, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
-//        log.info("token={}", token);
-//        response.setHeader("Authorization", "Bearer " + token);
-//        RequestDispatcher view = request.getRequestDispatcher("/enter-chat");
-//        view.forward(request, response);
-//    }
-
     @GetMapping("/chatting")
     public String chatIndex(Model model) {
 
-        String userId = "참석자2";
+        String userId = UUID.randomUUID().toString();
         log.info("userId by jwt={}", userId);
 
         URI uri = UriComponentsBuilder
@@ -67,7 +59,7 @@ public class ChatController {
 
     @GetMapping("/chatting/{roomId}")
     public String enterRoom(@PathVariable String roomId, Model model) {
-        String userId = "참석자2";
+        String userId = UUID.randomUUID().toString();
 
         // 채팅방 데이터
         ChatRoomDto[] rooms = this.getRooms(userId);
